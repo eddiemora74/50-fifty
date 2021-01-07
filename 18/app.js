@@ -5,15 +5,6 @@
   const body = document.querySelector("body");
   let activeSlider = 0;
 
-  function changeSlider(buttonId) {
-    if (buttonId === "left") {
-      setActiveSlider(1);
-    } else {
-      setActiveSlider(-1);
-    }
-    updateDom();
-  }
-
   function setActiveSlider(num) {
     const maxIndex = sliders.length - 1;
     if (num === -1) {
@@ -21,6 +12,7 @@
     } else {
       activeSlider = activeSlider === maxIndex ? 0 : activeSlider + 1;
     }
+    updateDom();
   }
 
   function updateDom() {
@@ -29,13 +21,13 @@
     body.style.backgroundImage = `url('assets/image${activeSlider + 1}.jpg')`;
   }
 
-  leftButton.addEventListener("click", () => changeSlider("left"));
-  rightButton.addEventListener("click", () => changeSlider("right"));
+  leftButton.addEventListener("click", () => setActiveSlider(-1));
+  rightButton.addEventListener("click", () => setActiveSlider(1));
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
-      changeSlider("left");
+      leftButton.click();
     } else if (e.key === "ArrowRight") {
-      changeSlider("right");
+      rightButton.click();
     }
   });
   window.addEventListener("DOMContentLoaded", () => updateDom());
